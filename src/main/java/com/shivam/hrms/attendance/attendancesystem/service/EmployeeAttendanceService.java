@@ -9,12 +9,12 @@ public interface EmployeeAttendanceService {
 
     List<EmployeeAttendance> findAll();
 
-    EmployeeAttendance findById(Long theId);
+    EmployeeAttendance findById(Long employeeId);
 
     EmployeeAttendance save(EmployeeAttendance theEmployee);
 
     EmployeeAttendance updateById(EmployeeAttendance employeeAttendance);
 
-    EmployeeAttendance deleteById(Long theId);
+    EmployeeAttendance deleteById(Long employeeId);
 
 }

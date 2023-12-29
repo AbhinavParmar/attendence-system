@@ -21,7 +21,7 @@ public class EmployeeAttendance {
 
     @Id
     @Column(name="employee_id")
-    private int employeeId;
+    private Long employeeId;
 
     @Column(name="attendance_date")
     private LocalDate attendanceDate;

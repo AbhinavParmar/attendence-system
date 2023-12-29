@@ -44,19 +44,19 @@ public class EmployeeAttendanceController {
     public String showFormCreateAttendance(Model theModel) {
 
         // create model attribute to bind form data
-        EmployeeAttendance theEmployeeAttendance = new EmployeeAttendance();
+        EmployeeAttendance EmployeeAttendance = new EmployeeAttendance();
 
-        theModel.addAttribute("employeeAttendance", theEmployeeAttendance);
+        theModel.addAttribute("employeeAttendance", EmployeeAttendance);
 
         return "employees-attendance/employee-attendance-form";
     }
 
     @GetMapping("/showAttendanceFormForUpdate")
-    public String showFormForUpdateAttendance(@RequestParam("employeeId") int theId,
+    public String showFormForUpdateAttendance(@RequestParam("employeeId") Long employeeId,
                                     Model theModel) {
 
         // get the employee from the service
-        EmployeeAttendance employeeAttendance = employeeAttendanceService.findById(Long.valueOf(theId));
+        EmployeeAttendance employeeAttendance = employeeAttendanceService.findById(employeeId);
 
         // set employee as a model attribute to pre-populate the form
         theModel.addAttribute("employeeAttendance", employeeAttendance);
@@ -79,10 +79,10 @@ public class EmployeeAttendanceController {
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam("employeeId") Long theId) {
+    public String delete(@RequestParam("employeeId") Long employeeId) {
 
         // delete the employee
-        employeeAttendanceService.deleteById(theId);
+        employeeAttendanceService.deleteById(employeeId);
 
         // redirect to /employees/list
         return "redirect:/employeesAttendance/listAttendance";

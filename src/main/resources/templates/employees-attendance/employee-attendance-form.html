@@ -39,15 +39,21 @@
         <!-- Add hidden form field to handle update -->
     <!--    <input type="text" th:field="*{id}"
                class="form-control mb-4 w-25" placeholder="Employee ID" />-->
+
+    <form action="#" th:action="@{/employeesAttendance/save}"
+           th:object="${employeeAttendance}" method="POST">
         Employee ID
         <input type="text" th:field="*{employeeId}"
                class="form-control mb-4 w-25" placeholder="Employee ID" />
+
         Employee Name
         <input type="text" th:field="*{employeeName}"
                class="form-control mb-4 w-25" placeholder="Employee Name" />
+
         Attendance Date
         <input type="date" th:field="*{attendanceDate}"
                class="form-control mb-4 w-25" placeholder="Attendance Date" />
+
         Check-In Time
         <input type="datetime-local" th:field="*{checkinTime}"
                class="form-control mb-4 w-25" placeholder="Check In Time" />
@@ -72,6 +78,7 @@
     </form>
     <hr>
     <a th:href="@{/employeesAttendance/listAttendance}">Back to Employees Attendance List</a>
+
 </div>
 </body>
 </html>
