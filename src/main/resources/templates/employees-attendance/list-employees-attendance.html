@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <!-- Required meta tags -->
@@ -54,7 +55,7 @@
             <th>Shift Detail</th>
             <th>Mode of Work</th>
             <th>Note(Misc.)</th>
-            <th>Action</th>
+            <th sec:authorize="hasRole('ADMIN')">Action</th>
         </tr>
         </thead>
 
@@ -81,9 +82,9 @@
             <td th:text="${tempEmployeeAttendance.note}" />
 
             <!-- Add update button/link -->
-            <td>
+            <td sec:authorize="hasRole('ADMIN')">
 
-                <a th:href="@{/employeesAttendance/showAttendanceFormForUpdate(employeeId=${tempEmployeeAttendance.employeeId})}"
+                <a  th:href="@{/employeesAttendance/showAttendanceFormForUpdate(employeeId=${tempEmployeeAttendance.employeeId})}"
                    class="btn btn-info btn-sm">
                     Update Attendance
                 </a>

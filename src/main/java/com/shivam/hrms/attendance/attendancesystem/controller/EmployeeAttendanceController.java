@@ -26,6 +26,17 @@ public class EmployeeAttendanceController {
         employeeAttendanceService = employeeAttendanceService;
     }*/
 
+    @GetMapping("/showLoginPage")
+    public String showLoginPage() {
+        return "login-attendance-system";
+    }
+
+    @GetMapping("/access-denied")
+    public String showAccessDenied() {
+
+        return "access-denied";
+    }
+
     // add mapping for "/list"
     @GetMapping("/listAttendance")
     public String listEmployeesAttendance(Model theModel) {
