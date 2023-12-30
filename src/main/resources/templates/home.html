@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Shivam Minerals HOME</title>
+</head>
+
+<body>
+<h2>Shivam Attendance System Home Page</h2>
+<hr>
+
+<p>
+    Sample home page!
+</p>
+
+<hr>
+
+<!-- display user name and role(s) -->
+
+<p>
+    User: <span sec:authentication="principal.username"></span>
+    <br><br>
+    Role(s): <span sec:authentication="principal.authorities"></span>
+</p>
+
+
+<form sec:authorize="hasRole('MANAGER')" action="#" th:action="@{/employeesAttendance/listAttendance}"
+      method="GET">
+    <input type="submit" value="Go To Employee Attendance Directory" class="btn btn-outline-primary mt-2" />
+</form>
+
+<!-- Add a logout button -->
+<form action="#" th:action="@{/logout}"
+      method="POST">
+
+    <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
+
+</form>
+</body>
+</html>
