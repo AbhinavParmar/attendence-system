@@ -7,4 +7,5 @@ import java.util.List;
 public interface EmployeeAttendanceDAO {
     List<EmployeeAttendance> findAll();
  /*   EmployeeAttendance findByID(int employeeId);*/
+
 }

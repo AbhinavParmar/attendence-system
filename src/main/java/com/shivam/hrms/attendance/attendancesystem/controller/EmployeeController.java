@@ -1,0 +1,150 @@
+package com.shivam.hrms.attendance.attendancesystem.controller;
+
+import com.shivam.hrms.attendance.attendancesystem.dao.EmployeeRepository;
+import com.shivam.hrms.attendance.attendancesystem.dao.FileStorageRepository;
+import com.shivam.hrms.attendance.attendancesystem.entity.Employee;
+
+import com.shivam.hrms.attendance.attendancesystem.exception.StorageException;
+import com.shivam.hrms.attendance.attendancesystem.service.EmployeeService;
+import jakarta.validation.Valid;
+import lombok.Data;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+
+import static java.lang.String.format;
+
+@Data
+@Controller
+@RequestMapping("/employee")
+@Log4j2
+public class EmployeeController {
+
+    private final EmployeeRepository employeeRepository;
+    private final FileStorageRepository fileStorageRepository;
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeRepository employeeRepository, FileStorageRepository fileStorageRepository, EmployeeService employeeService) {
+        this.employeeRepository = employeeRepository;
+        this.fileStorageRepository = fileStorageRepository;
+        this.employeeService = employeeService;
+    }
+
+    @ModelAttribute("employees")   //This method would run before any handler method
+    public Page<Employee> getEmployees(@PageableDefault(size = 10) Pageable page){
+        return employeeService.findAll(page);
+    }
+
+    @ModelAttribute("employee")
+    public Employee getEmployee(){
+        return new Employee();
+    }
+
+    //@GetMapping(value = "/index")
+    @GetMapping()
+    public String viewEmployees(Model model, @RequestParam(name = "keyword", defaultValue = "") String keyword, @PageableDefault(size = 50) Pageable page){
+        Page<Employee> employees = employeeService.findEmployeesByNameOrEmpId(keyword, page);
+        model.addAttribute("listEmployees", employees);
+        model.addAttribute("keyword", keyword);
+        return "employee";
+    }
+   /* @GetMapping
+    public String showEmployees(){
+        return "employee";   //this means show a view called
+    }*/
+
+    @GetMapping("/add")
+    public String displayEmployeeForm(Model model){
+        model.addAttribute("employee", new Employee());
+        model.addAttribute("pageTitle", "Add Employee");
+        return "add-employee";
+    }
+
+    @GetMapping("/view/{id}")
+    public String editStudentForm(@PathVariable Long id, Model model){
+        model.addAttribute("viewEmployee", employeeService.findById(id));
+        model.addAttribute("pageTitle", employeeService.findById(id).getFirstName() + " " + employeeService.findById(id).getLastName());
+        return "view-employee";
+    }
+
+    @GetMapping("/images/{resource}")
+    public ResponseEntity<Resource> getResource(@PathVariable String resource){
+        String disposition = """
+                 attachment; filename="%s"
+                """;
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, format(disposition, resource))
+                .body(fileStorageRepository.findByName(resource));
+    }
+
+    @PostMapping("/save")
+    public String createEmployee(Model model, @Valid Employee employee, Errors errors, @RequestParam("photoFileName") MultipartFile photoFile) throws IOException {
+        log.info(employee);
+        log.info("Photo File Name: "  + photoFile.getOriginalFilename());
+        log.info("Photo File Size: " + photoFile.getSize());
+        log.info("Errors: " + errors);
+        if (!errors.hasErrors()){
+            try {
+                employeeService.save(employee, photoFile.getInputStream());
+                return "redirect:/employee"; //if everything is okay, go back to the home page
+            } catch (StorageException e) {
+                model.addAttribute("errorMsg", "System is unable to accept images at this time. Please try again later");
+                return "add-employee";
+            }
+        }
+        return "add-employee";  //stay on the add-employee page if there are errors
+    }
+
+    @GetMapping("/{id}")
+    public String deleteEmployee(@PathVariable Long id){
+        employeeService.deleteById(id);
+        return "redirect:/employee";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editEmployee(@PathVariable Long id, Model model){
+        model.addAttribute("employee", employeeRepository.findById(id).get());
+        model.addAttribute("pageTitle", "Edit Employee");
+        return "edit-employee";
+    }
+
+    @PostMapping("/{id}")
+    public String updateEmployee(@PathVariable Long id, @ModelAttribute("employee") Employee employee, @RequestParam("photoFileName") MultipartFile photoFile) throws IOException {
+        //get employee from database by id
+        Employee existingEmployee = employeeRepository.findById(id).get();
+        existingEmployee.setFirstName(employee.getFirstName());
+        existingEmployee.setLastName(employee.getLastName());
+        existingEmployee.setEmail(employee.getEmail());
+        existingEmployee.setPhoneNumber(employee.getPhoneNumber());
+        if(!employee.getPhotoFileName().isEmpty()){
+            existingEmployee.setPhotoFileName(employee.getPhotoFileName());
+            fileStorageRepository.save(photoFile.getOriginalFilename(), photoFile.getInputStream());
+        }
+        employeeRepository.save(existingEmployee);
+        return "redirect:/employee";
+    }
+
+    @PostMapping(params = "action=import")
+    public String importCSV(@RequestParam MultipartFile csvFile){
+        log.info("File Name: " + csvFile.getOriginalFilename());
+        log.info("File Size: " + csvFile.getSize());
+        try {
+            employeeService.importCSV(csvFile.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/employee";
+    }
+}

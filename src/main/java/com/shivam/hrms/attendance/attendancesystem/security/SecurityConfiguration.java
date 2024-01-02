@@ -18,7 +18,6 @@ public class SecurityConfiguration {
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
 
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-
         // define query to retrieve a user by username
         jdbcUserDetailsManager.setUsersByUsernameQuery(
                 "select user_id, pw, active from members where user_id=?");
@@ -35,13 +34,20 @@ public class SecurityConfiguration {
 
         http.authorizeHttpRequests(configurer ->
                         configurer
+                                .requestMatchers(HttpMethod.GET).hasRole("EMPLOYEE")
                                 .requestMatchers(HttpMethod.POST).hasRole("EMPLOYEE")
                                 .requestMatchers(HttpMethod.POST).hasRole("MANAGER")
                                 .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET,"/").hasRole("EMPLOYEE")
+                                .requestMatchers("/**").hasRole("EMPLOYEE")                /*
                                 .requestMatchers(HttpMethod.GET,"/employeesAttendance/listAttendance/**").hasRole("MANAGER")
                                 .requestMatchers(HttpMethod.GET,"/employeesAttendance/listAttendance/**").hasRole("ADMIN")
-                                .anyRequest().authenticated()
+                                .requestMatchers(HttpMethod.POST,"/").hasRole("EMPLOYEE")
+                                .requestMatchers(HttpMethod.POST,"/employeesAttendance/listAttendance/**").hasRole("MANAGER")
+                                .requestMatchers(HttpMethod.POST,"/employeesAttendance/listAttendance/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST,"/employeesAttendance/search/**").hasRole("MANAGER")
+                                .requestMatchers(HttpMethod.GET,"/employeesAttendance/search/**").hasRole("MANAGER")
+                                .requestMatchers(HttpMethod.POST,"/employeesAttendance/searchByDate/**").hasRole("MANAGER")
+                                .requestMatchers(HttpMethod.GET,"/employeesAttendance/searchByDate/**").hasRole("MANAGER")*/
                 )
                 .formLogin(form ->
                         form
@@ -54,7 +60,6 @@ public class SecurityConfiguration {
                 .exceptionHandling(configurer ->
                         configurer.accessDeniedPage("/access-denied")
                 );
-
         return http.build();
     }
 }

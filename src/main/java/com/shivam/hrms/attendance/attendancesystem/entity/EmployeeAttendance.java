@@ -20,19 +20,25 @@ public class EmployeeAttendance {
 
 
     @Id
-    @Column(name="employee_id")
-    private Long employeeId;
+    @Column(name="attendanceId")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long attendanceId;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     @Column(name="attendance_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate attendanceDate;
 
-    @Column(name="employee_name")
-    private String employeeName;
 
     @Column(name="checkin_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime checkinTime;
 
     @Column(name="checkout_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime checkoutTime;
 
     @Column(name="office_location")

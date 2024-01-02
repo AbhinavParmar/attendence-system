@@ -1,7 +1,9 @@
 package com.shivam.hrms.attendance.attendancesystem.controller;
 
+import com.shivam.hrms.attendance.attendancesystem.entity.EmployeeCheckInCheckOut;
 import com.shivam.hrms.attendance.attendancesystem.service.EmployeeAttendanceService;
 import com.shivam.hrms.attendance.attendancesystem.entity.EmployeeAttendance;
+import com.shivam.hrms.attendance.attendancesystem.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -20,6 +24,7 @@ public class EmployeeAttendanceController {
 
     @Autowired
     private EmployeeAttendanceService employeeAttendanceService;
+    private EmployeeService employeeService;
 
     /*@Autowired
     public EmployeeAttendanceController(EmployeeAttendanceService employeeAttendanceService) {
@@ -33,13 +38,26 @@ public class EmployeeAttendanceController {
 
     @GetMapping("/access-denied")
     public String showAccessDenied() {
-
         return "access-denied";
+    }
+
+    @PostMapping("/employeeCheckIn")
+    public String checkInAttendance(EmployeeCheckInCheckOut employeeCheckInCheckOut) {
+        EmployeeAttendance checkInEntry = new EmployeeAttendance();
+        System.out.println(employeeCheckInCheckOut);
+        if (employeeCheckInCheckOut.getOpCode().equals("checkIn")) {
+            checkInEntry.setEmployee(employeeService.findById(employeeCheckInCheckOut.getEmployeeId()));
+            checkInEntry.setAttendanceDate(employeeCheckInCheckOut.getCurrentTimeStamp().toLocalDate());
+            checkInEntry.setCheckinTime(employeeCheckInCheckOut.getCurrentTimeStamp());
+            employeeAttendanceService.save(checkInEntry);
+        }
+        // use a redirect to prevent duplicate submissions
+        return "/home";
     }
 
     // add mapping for "/list"
     @GetMapping("/listAttendance")
-    public String listEmployeesAttendance(Model theModel) {
+    public String listEmployeesAttendance(Model theModel, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
 
         // get the employees from db
         List<EmployeeAttendance> theEmployeesAttendance = employeeAttendanceService.findAll();
@@ -47,7 +65,48 @@ public class EmployeeAttendanceController {
 
         // add to the spring model
         theModel.addAttribute("employeesAttendance", theEmployeesAttendance);
+        theModel.addAttribute("keyword", keyword);
+        return "employees-attendance/list-employees-attendance";
 
+    }
+
+    // add mapping for "/list"
+
+    @RequestMapping(path = {"/","/search"})
+    public String searchByKeyword(EmployeeAttendance employeeAttendance, Model model, String keyword) {
+        if(keyword!=null) {
+            List<EmployeeAttendance> searchAttendanceList = employeeAttendanceService.getByKeyword(keyword);
+            model.addAttribute("employeesAttendance", searchAttendanceList);
+            model.addAttribute("keyword", keyword);
+        }else {
+            List<EmployeeAttendance> searchAttendanceList = employeeAttendanceService.findAll();
+            model.addAttribute("employeesAttendance", searchAttendanceList);}
+        return "employees-attendance/list-employees-attendance";
+    }
+
+    @RequestMapping(path = {"/","/searchByDate"})
+    public String searchByDate(EmployeeAttendance employeeAttendance, Model model, LocalDate attendanceDate) {
+        if(!attendanceDate.equals(null)) {
+            List<EmployeeAttendance> searchAttendanceList = employeeAttendanceService.getByDate(attendanceDate);
+            model.addAttribute("employeesAttendance", searchAttendanceList);
+            model.addAttribute("attendanceDate", attendanceDate);
+        }else {
+            List<EmployeeAttendance> searchAttendanceList = employeeAttendanceService.findAll();
+            model.addAttribute("employeesAttendance", searchAttendanceList);
+        }
+        return "employees-attendance/list-employees-attendance";
+    }
+
+    @RequestMapping(path = {"/","/searchByDateRange"})
+    public String searchByDateRange(EmployeeAttendance employeeAttendance, Model model, LocalDate fromAttendanceDate,LocalDate toAttendanceDate) {
+        if(!(fromAttendanceDate.equals(null) || toAttendanceDate.equals(null))) {
+            List<EmployeeAttendance> searchAttendanceList = employeeAttendanceService.getByDateRange(fromAttendanceDate,toAttendanceDate);
+            model.addAttribute("employeesAttendance", searchAttendanceList);
+            model.addAttribute("fromAttendanceDate", fromAttendanceDate);
+            model.addAttribute("toAttendanceDate", toAttendanceDate);
+        }else {
+            List<EmployeeAttendance> searchAttendanceList = employeeAttendanceService.findAll();
+            model.addAttribute("employeesAttendance", searchAttendanceList);}
         return "employees-attendance/list-employees-attendance";
     }
 

@@ -8,26 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
     <title>Employees Attendance Directory</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-          $("button").click(function(){
-            $.post("192.168.5.26:3000/detect_final2",
-          {
-              "name":"Akshay Kumar",
-              "department":"Payroll",
-    "time":"2024-10-10T09:45:21",
-    "image" :"/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAIsAyAMBIgACEQEDEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAAAQUGAgQHA//EAEIQAAEDAgMEBwQIAwcFAAAAAAIAAQMEEgURIhMhMTIGFEFCUVJhcYHB0SMkYnKRobHwB7LCFTNDgpKi4RY0U1Rz/8QAGgEAAgMBAQAAAAAAAAAAAAAAAAMBBAUCBv/EACERAAMAAgICAgMAAAAAAAAAAAABAgMREiEEMUFRE2Fi/9oADAMBAAIRAxEAPwDzZZMhk2TymCeSGZZIAWSaE0AeNZONLRyznpGONzL3MuQYnXTYhWHPKRFcWm7sbsZdC6e1JU+BEIlaU0jB7uL/AKLmTN3ku32PxL5BStBTjsdpds/tW/vNeOF0ElbNoHlV2wropJUf9xyjkq15VJcx4nRS5gklm+iER+1Hnl+HYpGmwKsqobtmRCum0PRehpwH6O5TkVFCGkYxH98FXryPosz4y+Tin/T1QPJcK1pqGupz7xfvgu6FhkMvdFalRgtPZ/dqFnpHb8aWcImGoA9QkP2V4lIXe/3cW9j8V2Gs6M08p8v+1VTEuigmF0XMmx5C+RN+JS9FKeoPK0iuHsu4ss+s36ZdXgtiuwqal7qj3FWJar0Valz7JCkqI6eYStH73x47nXTsAryr6CKUyEi4EXj6+jrkIXLpfQSuhqqAqYI7ZYeb1Z+DpkdMRlW0WdJ1kk6aVzFCaHQBi7ITQgDBk2QyaAGhCaABNCakCmfxJcup0w93aO/tfLd8VRqENrUiJK//AMSAL+yqYrdIztn/AKXyVAo3+uD95JstYjqPRXDYaegErdRbyJWikay5QnRwvqcSsVMCx8j3RtY0lHRsRsXf0qWo6cZVGgy36IiA9KIJv0bjUVn9S0q+IbNC3pJy8379q0K4+6m1rQqG9kWbc2lRVTCPlUsbko2tl0JDLKKhjNPGdw28ypeJ0GyPQr1iX0pquYnHrK/yqxipor5oVIqNtp2qz9AjKLG7R70b3D4s2SgqmP6YfuqydAor+kM8ocscD3e/L5LQjsysq0dESdZJJ5TEkmhACdCHQgDFNCEANk2QyaABNCakCG6X04z9HK6/uhePtZ8/guVULfWRXYMcYZcHroyLmgP+V1zPozh5VWJRj7HL0btVfLSS2W/HTOhdF3IaaC/1VspeRVyN46cx7ojn8lo4h0ikCYYKUrR73Y75eHyWWod1s2HSlaL7G1nOt+KPRcC5tF0op4gulLUPdKR3f37slJUX8QaWK0ZSuHzfPLgmLC0LeWWXaXaafKtWUr/MsaHpBS4lCJAQkJLNpaczIrtKjR3L2a8kfeBRWIQ6CUvPUw058yiMRro7NCU5GJ6KpVNYZKCxjku9xKdr5YzuIVB4sYnTaPMu5lo4uk0VWsP6a37Lfirv/Dijso6mtL/EOwfY3/LqhVxfWSXVeiFKVL0epBLmIdp/q3/FlqYkY+dkykm6SeVBIQhQAnQh0IASaGTQAMskmTUgNCE2QSY9Thr6OuppY7ZbHsLxzF2+apnQOgs285jqKSwfY3H83XQowHqEs/KQ5W+rNuf4uq7ggiEOjzF/M6x7tvkbsRri/wBHhjkE0oWhy3avD3qvYj1WltGWQtr5Yy7OG/NdBGEjhIYtRF+9/YoCTo+NPiXXajmuz9AfLJv1XOLJpHdRyKLPTU89N1kSm2ZS7O4mza7LPLLNn4duWSx/siSnmtuIbebS7O3tZ9+Sup4DhNPUjUhsCISY9Uul+3LLLh6LbrLccr4pCtEhHK6IMm97vx9ie8u0LnB2eXRCKS+07S8pD8lcJQKKEvNwWlQUUNLqiERLdy+P7zUnjBD1P7Sr8ux8rRzvpH0i6vNsgK4h8vBVGTpDVGZXzEIl5V6V8ElViU+kpNbsIjxd+xlt1eB1FAZWxzzRFBpKDOJgN+Dvmzu7M+e7dn4srONSvZWycn6IscTqjAtRF90Vk1Z/7Alq5vX19qnSwSan6PRYhLIJVPbGWV2XY7O29nyy45qBkLrEN2z1XZaRy/TtTNoTwfyR+IBlNmPKTcV2LDyj6hB1eQZBGMWEh3tytkuTYnAWxpC75XA/tbL5rqGAYeOG4VBTXXFbeXtfe6sYinnRIusVksU4rAhCSgBOhDoQA02QmyAGyaGQpAE0JqKels6lbejbrWGUIqLl2gM2n2Zv71XsJEghtPuk7f7nU9KNhwVd1uxyYu1jZ9zP6blDx6Kwh+18XWH9no+tosFJEJWreKh0XCPwWlQlyqeppI7C1KJWwpteiC6hGZ3HTx3faFbT0dOHdEfu7vcveaWni1HJpWp16ll/uu6pZKWzyPUZeVeOLSWUBF9l16m49zvLx6RxDFggl/5BdcJM70cywt9riRXaSkLMS8H3q1TR1hwiPMQ92Qn/ACdVWiaEKkSLmuV7oT2oa9SbVNM4iUysy4fXS3D1cR+0O9vwWo3Ryalh2kunVyiXzbcuhOEIBqEVC42dkJKFbCsa0c8xeMQhgjuLTO/N6szuunDyD91csxaTa1kY3d/P8l1MeQVp4H0Y3lLTBJ00nVkpCSTQoAToQ6EAZMmhNkANCE1IAybIQgldEhTSRyw2+Xdb+igagNliUv3nZbFZoppS7wg9tpOz+nBRGFtIMIjUFdL5i3u+brKzYuDNrBn/ACSWKlqbLf6l61GI7KEiuUKTSf4QrQxCCoqJhprijEubV2N8VXLafR6vWVWP1/VqWQo4B/vZB/RvVTsNPR4QF3LEI6yLP8X/AD3rWw2njooRjiERHuiP6v4upXTVBafKX6Lr2cu+jGOvo6wBkpagZIy3sQEz+7Ne3SQ6WqwoowIhtF7bvBVyrwcaC6poi2P/AM+D9u9uDqm41j+IS7WAfiulD30Q8qXbMwrKOKEh72+5bPRvFJotRSXRXPd6NnudUyKnklPUpzDfq4WiVqZUJIXOV7OmDUicOgtKhsbqfq0t3lUVS18lPDbzDxH5KGxfFusBaCUp7HPKuJFjBJW1gwRcxFkPvdmXVxawLVSeh+BzHUxYpVDbEI5wj2m79vo29XZamGdSYnk2qekDpJpOnFUSEIUACEnQgD0ZNJNSA00mWSABIzGICIytEeYk1V+m1UXUypIi1bNzK32bm/VQ3o7meT0bz49Q18xUlLIUhd4rd2TO2e9elW3V6mIvMP6bn+Cp3QGK46mfy2gP5u/wV8r4NrQXd6Pf7u1lleRbeTRsePjU4+j0htvEu6S88RjIDGUB1cPxWrQ1F0P3VIRz7W27zfvJJH7IOtPHKCYZbYSpC4lJnofLPf4N6qZo36QFbbQwaisERJ975Z7t3h+ilrb6YhMRK4eUu1PBMTmws7djtors9PM2TO27szTJ0HGvaIeoxeSKEhr6PZjwK4Xyz9vBVjFMSwuIC2Ue0Iu7u3e110ufH8Nr8Nlpq2MoSmMro5I3fLVufNmds8sn4qCxJujcV1SFP1gYYC2QxxPzbmZsss37fwU60wdfycmmrrdQ0+kkUdXJKdoQl/lUjiFF1qpu2fV4BHIR7x+Lv4Z71K4NTxiF0Q29n4fBMbXEW4afZ6xU+1uEx0iGpVispuWIB+nmkZh975MyumIVEdLQEV1t28vgyh+iVEVfiUuJSj9FCWj1LLd+Dfm7KMMuqFZ6mYLlTQjT00UAcscbAPsZsl6ISWoY+wSQkggEJIUADuhJ0IA92TSTUgCaSyQBhNKMUJSSlaIjmSo88xVVYUh/4hfl4fgpjpPX320URd7OX4MouliHbcqVdFrDOls2ujNINBNLTd0ivi9Wf5K4AOhVYtFpBzR7xLjn6Kz4fVDVUYyAOrgQ+DrLzy1XI1cFJzxKyf1WpKM/Np9W/wCFJ0U/03LcscdpBlC4OYVB0dcUVTspdJCXuRrkugfT7L2JjZ/UvB5ip9QFaX6rOhkGWHR6L1kptr+9yjR3L+iNr8VE+eEbvMIqMqq4T5P5X+KlanDCACthG3hpUXPQSBptUtsYslL0VutKSXSOlSTuNFR+URFbUOGWGU8uq3lFQGOSTVRxUNEO0lmLIRHwbc7u/YzLqFyekIy20t0aDHVdIcSGkp9MXEi7GZuLuuhUVLDRU0VNTjbFGOQ/F39X4rS6P4PDgtHsw1Tlvlk8X8G9GUktPHj4Ixs2R2xpISzTBI1ih3SzQA3dLNY5ozQAO6Fi7oQBtsmhHAByUAIiEAuIrRVfxTHi1QUH+aT5JdJ5pBlYBJ2FmzyZRFEzbQG7C4+qXV9ljFjT9gD3ncWq7m8c3WzRhbUkJ939H4Ms4QHbS7uD5+9ewi3XOHdZJ2WuOj2Mdf8AKKypqiSiqdpFcQlulH5eqZ7oL25n4uvMeOXYuKlUtM6Tae0TxlHVQ3RahJVbGsPv1DzCpDDjIMRaIXyjOLMh7HdbtWIvPa7afBU2uFaLqfOdkb0axkovqlQVpCWm7tZuCusVZTygOobvL7Vy/FRZiuZt628Dr6o4xY5iL2+5d65LZwnxejoFbiI8to+Cj8Qqo7LVB1E0g8pu2rsUbi1RMMOmR2XOtjOSRs4ji8cVMWrm/fxXl0InhquvT2/TibBd225Zt7N+f5Kk1sskh6yd15YfUzwDI0MhAx82XarmGVL2Z/kU76OtQ19PUVMsEUglLHzD8lsLlkNTNC4zxSOMrSNkbcV0ylJ5KeIjfMibe/irU1so3Gj1d0s1iL57n4JuuzgHdJJCABJ3SdJADd0LFCCD/9k="
-},
-            function(data,status){
-              alert("Data: " + data + "\nStatus: " + status);
-            });
-          });
-        });
-    </script>
+
 </head>
 
 <body>
@@ -42,7 +28,42 @@
        class="btn btn-primary btn-sm mb-3">
         Add Employee Attendance
     </a>
+    <tr>
+        <td>
+            <form th:action="@{/employeesAttendance/searchByDate}" method="get">
+                <label for="attendanceDate" class="form-label">Attendance Date : </label>
+                <input type="date" name="attendanceDate" th:value="*{attendanceDate}"
+                       class="form-control mb-4 w-25" id="attendanceDate" placeholder="Attendance Date">
+                <button type="submit" class="btn btn-info">Search</button>
+                <button type="submit" class="btn btn-info">Reset</button>
+            </form>
+        </td>
 
+        <td>
+            <form th:action="@{/employeesAttendance/searchByDateRange}" method="get">
+                <label for="fromAttendanceDate" class="form-label">From Date : </label>
+                <input type="date" name="fromAttendanceDate" th:value="*{fromAttendanceDate}"
+                       class="form-control mb-4 w-25" id="fromAttendanceDate" placeholder=" From Attendance Date">
+
+                <label for="toAttendanceDate" class="form-label">To Date : </label>
+                <input type="date" name="toAttendanceDate" th:value="*{toAttendanceDate}"
+                       class="form-control mb-4 w-25" id="toAttendanceDate" placeholder=" To Attendance Date">
+
+                <button type="submit" class="btn btn-info">Search</button>
+                <button type="submit" class="btn btn-info">Reset</button>
+
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/employeesAttendance/search}" method="get">
+                <input type="text" name="keyword" th:value="${keyword}"
+                       placeholder="Find by Employee ID, Employee Name, Office Location  " size="50">
+                <button type="submit" class="btn btn-info">Search</button>
+                <button type="submit" class="btn btn-info">Reset</button>
+            </form>
+        </td>
+    </tr>
+    <hr>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
         <tr>
@@ -61,30 +82,31 @@
 
         <tbody>
         <tr th:each="tempEmployeeAttendance : ${employeesAttendance}">
-            <td th:text="${tempEmployeeAttendance.employeeId}" />
-            <td th:text="${tempEmployeeAttendance.employeeName}" />
+            <td th:text="${tempEmployeeAttendance.attendanceId}"/>
+            <td th:text="${tempEmployeeAttendance.employee}"/>
 
-           <!-- <td th:text="${#dates.format(tempEmployeeAttendance.attendanceDate, 'dd.MM.yyyy')}" />
-            <td th:text="${#temporals.format(tempEmployeeAttendance.checkinTime, 'dd-MM-yyyy HH:mm')}" />
+            <!-- <td th:text="${#dates.format(tempEmployeeAttendance.attendanceDate, 'dd.MM.yyyy')}" />
+             <td th:text="${#temporals.format(tempEmployeeAttendance.checkinTime, 'dd-MM-yyyy HH:mm')}" />
 
-            <td th:text="${#temporals.format(sprint.releaseDate, 'dd-MM-yyyy HH:mm')}">30-12-2021 23:59</td>
-           --> <!--
+             <td th:text="${#temporals.format(sprint.releaseDate, 'dd-MM-yyyy HH:mm')}">30-12-2021 23:59</td>
+            -->
+            <!--
            Add Time Line / ProgressBar
            -->
-            <td th:text="${tempEmployeeAttendance.attendanceDate}" />
-            <td th:text="${tempEmployeeAttendance.checkinTime}" />
-            <td th:text="${tempEmployeeAttendance.checkoutTime}" />
+            <td th:text="${tempEmployeeAttendance.attendanceDate}"/>
+            <td th:text="${tempEmployeeAttendance.checkinTime}"/>
+            <td th:text="${tempEmployeeAttendance.checkoutTime}"/>
 
 
-            <td th:text="${tempEmployeeAttendance.officeLocation}" />
-            <td th:text="${tempEmployeeAttendance.shiftDetail}" />
-            <td th:text="${tempEmployeeAttendance.modeOfWork}" />
-            <td th:text="${tempEmployeeAttendance.note}" />
+            <td th:text="${tempEmployeeAttendance.officeLocation}"/>
+            <td th:text="${tempEmployeeAttendance.shiftDetail}"/>
+            <td th:text="${tempEmployeeAttendance.modeOfWork}"/>
+            <td th:text="${tempEmployeeAttendance.note}"/>
 
             <!-- Add update button/link -->
             <td sec:authorize="hasRole('ADMIN')">
 
-                <a  th:href="@{/employeesAttendance/showAttendanceFormForUpdate(employeeId=${tempEmployeeAttendance.employeeId})}"
+                <a th:href="@{/employeesAttendance/showAttendanceFormForUpdate(employeeId=${tempEmployeeAttendance.employeeId})}"
                    class="btn btn-info btn-sm">
                     Update Attendance
                 </a>

@@ -24,8 +24,25 @@
     Role(s): <span sec:authentication="principal.authorities"></span>
 </p>
 
+<form action="#" th:action="@{/employeesAttendance/employeeCheckIn}"
+      th:object="${employeeCheckInCheckOut}" method="POST">
+    Employee ID
+    <input type="text" th:field="*{employeeId}"
+           class="form-control mb-4 w-25" placeholder="Employee ID" />
+    Employee Name
+    <input type="text" th:field="*{employeeName}"
+           class="form-control mb-4 w-25" placeholder="Employee Name" />
+    Op Code
+    <input type="text" th:field="*{opCode}"
+           class="form-control mb-4 w-25" placeholder="Check-in / Check-out" />
+    Check-In/Out Time
+    <input type="datetime-local" th:field="*{{currentTimeStamp}}"
+           class="form-control mb-4 w-25" placeholder="Current Time" />
 
-<form sec:authorize="hasRole('MANAGER')" action="#" th:action="@{/employeesAttendance/listAttendance}"
+    <button type="submit" class="btn btn-info col-2">Save</button>
+
+</form>
+    <form sec:authorize="hasRole('MANAGER')" action="#" th:action="@{/employeesAttendance/listAttendance}"
       method="GET">
     <input type="submit" value="Go To Employee Attendance Directory" class="btn btn-outline-primary mt-2" />
 </form>
@@ -33,7 +50,6 @@
 <!-- Add a logout button -->
 <form action="#" th:action="@{/logout}"
       method="POST">
-
     <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
 
 </form>
